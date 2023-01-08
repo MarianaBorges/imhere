@@ -11,10 +11,10 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - name: Install Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
 
@@ -22,10 +22,11 @@ jobs:
         run: npm install
 
       - name: Install Java JDK
-        uses: joschi/setup-jdk@v1
+        uses: actions/setup-java@v2
         with:
-          java-version: 'openjdk8'
+          java-version: '11'
           architecture: 'x64'
+          distribution: 'adopt-hotspot'
         env:
           # https://github.com/actions/toolkit/issues/641#issuecomment-728963957
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'

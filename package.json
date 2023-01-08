@@ -8,8 +8,10 @@
     "android-rn": "npx react-native run-android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "e2e:ios": "detox test --configuration ios.sim",
-    "e2e:android": "detox test --configuration android.emu.debug"
+    "e2e:ios": "detox test -c ios.sim.debug",
+    "e2e:android": "detox test -c android.emu.debug",
+    "e2e:build-ios": "detox build -c ios.sim.debug",
+    "e2e:build-android": "detox build -c android.emu.debug"
   },
   "dependencies": {
     "expo": "~46.0.13",
@@ -19,7 +21,7 @@
     "jest-expo": "^47.0.1",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "react-native": "0.69.6",
+    "react-native": "0.69.7",
     "react-native-web": "~0.18.7"
   },
   "devDependencies": {
@@ -30,52 +32,5 @@
     "detox-expo-helpers": "^0.6.0",
     "jest": "^27.5.1",
     "typescript": "~4.3.5"
-  },
-  "detox": {
-    "apps": {
-      "imhere.ios": {
-        "type": "ios.app",
-        "binaryPath": "bin/Exponent.app"
-      },
-      "imhere.android": {
-        "type": "android.apk",
-        "binaryPath": "android/app/build/outputs/apk/release/app.apk"
-      }
-    },
-    "devices": {
-      "simulator": {
-        "type": "ios.simulator",
-        "device": {
-          "type": "iPhone 8"
-        }
-      },
-      "emulator": {
-        "type": "android.emulator",
-        "device": {
-          "avdName": "Pixel_3a_API_30_x86"
-        }
-      }
-    },
-    "configurations": {
-      "ios.sim": {
-        "device": "simulator",
-        "app": "imhere.ios",
-        "testRunner": {
-          "args": {
-            "config": "e2e/jest.config.js"
-          }
-        }
-      },
-      "android.emu.debug": {
-        "device": "emulator",
-        "app": "imhere.android",
-        "testRunner": {
-          "args": {
-            "config": "e2e/jest.config.js"
-          }
-        }
-      }
-    },
-    "private": true
   }
 }

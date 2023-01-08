@@ -34,9 +34,9 @@ jobs:
 
       - name: Run Detox Test(s)
         run: |
-        npm start &
-        METRO_BUNDLER_PID=$!
-        npm run e2e:ios
-        DETOX_EXIT_CODE=$?
-        kill $METRO_BUNDLER_PID
-        exit $DETOX_EXIT_CODE
+          npm start &
+          METRO_BUNDLER_PID=$!
+          npm run e2e:ios
+          DETOX_EXIT_CODE=$?
+          kill $METRO_BUNDLER_PID
+          exit $DETOX_EXIT_CODE

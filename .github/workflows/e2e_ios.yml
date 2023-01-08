@@ -1,0 +1,42 @@
+name: E2E (iOS)
+
+on:
+  push:
+    branches:
+      - '01-08-POCGithubActions'
+
+jobs:
+  build:
+    name: E2E (iOS)
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18'
+
+      - name: Install npm Dependencies
+        run: npm install
+
+      - name: Install Pod Dependencies
+        run: cd ./ios && pod install && cd ..
+
+      - name: Install Detox Dependencies
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+
+      - name: Run Detox Build
+        run: npm run e2e:build-ios
+
+      - name: Run Detox Test(s)
+        run: |
+        npm start &
+        METRO_BUNDLER_PID=$!
+        npm run e2e:ios
+        DETOX_EXIT_CODE=$?
+        kill $METRO_BUNDLER_PID
+        exit $DETOX_EXIT_CODE

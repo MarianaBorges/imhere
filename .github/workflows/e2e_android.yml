@@ -1,0 +1,50 @@
+name: E2E (Android)
+
+on:
+  push:
+    branches:
+      - '01-08-POCGithubActions'
+
+jobs:
+  build:
+    name: E2E (Android)
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18'
+
+      - name: Install npm Dependencies
+        run: npm install
+
+      - name: Install Java JDK
+        uses: joschi/setup-jdk@v1
+        with:
+          java-version: 'openjdk8'
+          architecture: 'x64'
+        env:
+          # https://github.com/actions/toolkit/issues/641#issuecomment-728963957
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
+      - name: Run Detox Build
+        run: npm run e2e:build-android
+
+      - name: Run Detox Test(s)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 31
+          target: default
+          arch: x86_64
+          profile: pixel
+          avd-name: Pixel_3a_API_33_x86_64
+          script: |
+            npm start &
+            METRO_BUNDLER_PID=$!
+            npm run e2e:android
+            DETOX_EXIT_CODE=$?
+            kill $METRO_BUNDLER_PID
+            exit $DETOX_EXIT_CODE

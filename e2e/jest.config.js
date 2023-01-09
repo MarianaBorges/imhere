@@ -6,7 +6,13 @@ module.exports = {
   maxWorkers: 1,
   globalSetup: 'detox/runners/jest/globalSetup',
   globalTeardown: 'detox/runners/jest/globalTeardown',
-  reporters: ['detox/runners/jest/reporter', "jest-html-reporters"],
+  reporters: [
+    'detox/runners/jest/reporter',
+    ["jest-html-reporters", {
+      "publicPath": "./e2e",
+      "filename": "report.html"
+    }]
+  ],
   testEnvironment: 'detox/runners/jest/testEnvironment',
   verbose: true,
 };

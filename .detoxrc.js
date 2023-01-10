@@ -43,10 +43,10 @@ module.exports = {
     }
   },
   configurations: {
-    /*'ios.sim':{
+    'ios.sim':{
       device: 'simulator',
       app: 'test-detox.ios'
-    },*/
+    },
     'ios.sim.debug': {
       device: 'simulator',
       app: 'ios.debug'

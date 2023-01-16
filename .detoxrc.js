@@ -10,6 +10,10 @@ module.exports = {
     }
   },
   apps: {
+    'test-detox.ios': {
+      type: 'ios.app',
+      binaryPath: 'bin/Exponent.app',
+    },
     'ios.debug': {
       type: 'ios.app',
       binaryPath: 'bin/Exponent.app',
@@ -39,6 +43,10 @@ module.exports = {
     }
   },
   configurations: {
+    'ios.sim':{
+      device: 'simulator',
+      app: 'test-detox.ios'
+    },
     'ios.sim.debug': {
       device: 'simulator',
       app: 'ios.debug'
